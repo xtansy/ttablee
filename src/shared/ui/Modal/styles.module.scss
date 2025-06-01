@@ -1,0 +1,64 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: var(--card-bg-color);
+  color: var(--white-color);
+  border: 2px solid var(--border-color);
+  box-shadow: 0 0 20px var(--glow-color);
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.content {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.close:hover {
+  transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
