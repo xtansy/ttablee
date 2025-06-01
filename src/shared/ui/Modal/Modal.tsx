@@ -27,7 +27,7 @@ export const Modal: FC<IModalProps> = ({
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         {title && <div className={styles.header}>{title}</div>}
         <div className={styles.content}>{children}</div>

@@ -1,10 +1,7 @@
 import { ColDef } from "ag-grid-community";
 
-import {
-  type TColumnWithValidation,
-  type TValidationData,
-} from "./columnsWithValidation";
-import { IUser } from "../entityTypes";
+import { type IUser } from "../entityTypes";
+import type { TColumnWithValidation, TValidationData } from "./types";
 
 export const mapToColDefs = (
   columns: TColumnWithValidation[]

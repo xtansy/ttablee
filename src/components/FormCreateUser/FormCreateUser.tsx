@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { type TValidationData } from "../../shared/columns";
 import { type IUserWithoutId } from "../../shared/entityTypes/user";
+import { type TValidationData } from "../../shared/columns";
 
 interface IFormCreateUserProps {
   validationData: TValidationData[];
@@ -40,7 +40,6 @@ export const FormCreateUser: FC<IFormCreateUserProps> = ({
   });
 
   const onClickSubmit = (data: IUserWithoutId) => {
-    console.log("Отправленные данные:", data);
     onSubmit?.(data);
   };
 

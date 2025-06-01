@@ -18,8 +18,6 @@ export const TableUsersManagement = () => {
   const onAddUser = (data: IUserWithoutId) => {
     createRow(data).then(() => {
       tableRef.current?.refresh();
-
-      console.log("@@ tableRef.current", tableRef.current);
     });
   };
   return (

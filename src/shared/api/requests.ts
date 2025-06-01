@@ -28,7 +28,7 @@ export const getRows = async ({
 export const createRow = async (params: IUserWithoutId) => {
   try {
     const { data } = await api.post("/users", params);
-    console.log("@@ data", data);
+    return data;
   } catch (error) {
     if (error instanceof AxiosError) {
       const userMessage =

@@ -1,15 +1,5 @@
 import * as yup from "yup";
-import { ColDef } from "ag-grid-community";
-
-import { type IUser, type IUserWithoutId } from "../entityTypes";
-
-export type TValidationData = {
-  validation?: yup.AnySchema;
-  fieldName?: keyof IUserWithoutId;
-  formLabel?: string;
-};
-
-export type TColumnWithValidation = ColDef<IUser> & TValidationData;
+import { type TColumnWithValidation } from "./types";
 
 export const COLUMNS_WITH_VALIDATION: TColumnWithValidation[] = [
   {
@@ -42,7 +32,12 @@ export const COLUMNS_WITH_VALIDATION: TColumnWithValidation[] = [
     headerName: "Возраст",
     formLabel: "Возраст",
     maxWidth: 100,
-    validation: yup.number().required("Введите возраст").min(0).max(120),
+    validation: yup
+      .number()
+      .typeError("Введите число")
+      .required("Введите возраст")
+      .min(0, "Минимум 0 лет")
+      .max(120, "Максимум 120 лет"),
   },
   {
     field: "isActive",
@@ -73,6 +68,11 @@ export const COLUMNS_WITH_VALIDATION: TColumnWithValidation[] = [
     headerName: "Посты",
     formLabel: "Количество постов",
     maxWidth: 170,
-    validation: yup.number().required().min(0),
+    validation: yup
+      .number()
+      .typeError("Введите число")
+      .required()
+      .min(0)
+      .max(1000, "Максимально 1000 постов"),
   },
 ];
