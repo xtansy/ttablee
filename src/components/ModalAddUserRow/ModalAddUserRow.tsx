@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import { FormCreateUser } from "..";
 import { Button, Modal } from "../../shared";
 import { type TValidationData } from "../../shared/columns";
@@ -9,29 +9,38 @@ import { type IUserWithoutId } from "../../shared/entityTypes";
 interface IModalAddUserRowProps {
   validationData: TValidationData[];
   onSubmit?: (data: IUserWithoutId) => void;
+  isOpen?: boolean;
+  openModal?: () => void;
+  closeModal?: () => void;
+  isLoading?: boolean;
 }
 
 export const ModalAddUserRow: FC<IModalAddUserRowProps> = ({
   validationData,
   onSubmit,
+  isOpen = false,
+  closeModal,
+  isLoading = false,
+  openModal,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const onClickOpen = () => {
-    setIsOpen(true);
+    openModal?.();
   };
 
   const onClickClose = () => {
-    setIsOpen(false);
+    closeModal?.();
   };
 
   const onClickSubmit = (data: IUserWithoutId) => {
     onSubmit?.(data);
-    setIsOpen(false);
   };
   return (
     <>
-      <Button className={styles.button} onClick={onClickOpen}>
+      <Button
+        isLoading={isLoading}
+        className={styles.button}
+        onClick={onClickOpen}
+      >
         Добавить запись
       </Button>
 
@@ -41,6 +50,7 @@ export const ModalAddUserRow: FC<IModalAddUserRowProps> = ({
         onClose={onClickClose}
       >
         <FormCreateUser
+          isLoading={isLoading}
           validationData={validationData}
           onSubmit={onClickSubmit}
         />

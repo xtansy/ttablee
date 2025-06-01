@@ -7,10 +7,12 @@ import * as yup from "yup";
 
 import { type IUserWithoutId } from "../../shared/entityTypes/user";
 import { type TValidationData } from "../../shared/columns";
+import { Button } from "../../shared";
 
 interface IFormCreateUserProps {
   validationData: TValidationData[];
   onSubmit?: (data: IUserWithoutId) => void;
+  isLoading?: boolean;
 }
 
 const buildSchema = (
@@ -28,6 +30,7 @@ const buildSchema = (
 export const FormCreateUser: FC<IFormCreateUserProps> = ({
   validationData,
   onSubmit,
+  isLoading = false,
 }) => {
   const schema = buildSchema(validationData);
 
@@ -74,9 +77,14 @@ export const FormCreateUser: FC<IFormCreateUserProps> = ({
         );
       })}
 
-      <button type="submit" className={styles.submitButton}>
+      <Button
+        variant="outlined"
+        isLoading={isLoading}
+        type="submit"
+        className={styles.submitButton}
+      >
         Создать
-      </button>
+      </Button>
     </form>
   );
 };

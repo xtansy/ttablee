@@ -1,6 +1,6 @@
 import { TableUsersInfinite, ModalAddUserRow } from "../../components";
 import { TableUsersInfiniteRef } from "../../components/TableUsersInfinite/TableUsersInfinite";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   COLUMNS_WITH_VALIDATION,
   mapToColDefs,
@@ -13,17 +13,41 @@ const COLUMNS = mapToColDefs(COLUMNS_WITH_VALIDATION);
 const VALIDATION_DATA = mapToValidationData(COLUMNS_WITH_VALIDATION);
 
 export const TableUsersManagement = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const tableRef = useRef<TableUsersInfiniteRef>(null);
 
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   const onAddUser = (data: IUserWithoutId) => {
-    createRow(data).then(() => {
-      tableRef.current?.refresh();
-    });
+    setIsLoading(true);
+    createRow(data)
+      .then(() => {
+        tableRef.current?.refresh();
+      })
+      .finally(() => {
+        setIsLoading(false);
+        closeModal();
+      });
   };
   return (
     <>
       <TableUsersInfinite ref={tableRef} columns={COLUMNS} />
-      <ModalAddUserRow validationData={VALIDATION_DATA} onSubmit={onAddUser} />
+      <ModalAddUserRow
+        openModal={openModal}
+        isLoading={isLoading}
+        isOpen={isOpen}
+        closeModal={closeModal}
+        validationData={VALIDATION_DATA}
+        onSubmit={onAddUser}
+      />
     </>
   );
 };

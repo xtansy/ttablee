@@ -1,14 +1,12 @@
 import styles from "./styles.module.scss";
-import { FC, ReactNode } from "react";
+import { ButtonHTMLAttributes, FC } from "react";
 import cn from "classnames";
 
-interface IButtonProps {
-  children?: ReactNode;
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   variant?: "main" | "outlined" | "accent";
   className?: string;
   disabled?: boolean;
-  onClick?: () => void;
 }
 
 export const Button: FC<IButtonProps> = ({
@@ -17,10 +15,11 @@ export const Button: FC<IButtonProps> = ({
   variant = "main",
   disabled = false,
   isLoading = false,
-  onClick,
+  ...rest
 }) => {
   return (
     <button
+      {...rest}
       className={cn(
         styles.button,
         styles[`button_${variant}`],
@@ -30,7 +29,6 @@ export const Button: FC<IButtonProps> = ({
         },
         className
       )}
-      onClick={onClick}
       disabled={disabled || isLoading}
     >
       {isLoading && <div className={styles.loader} />}
